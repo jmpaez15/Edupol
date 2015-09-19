@@ -23,7 +23,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import oracle.net.aso.b;
 
 /**
  *
@@ -34,7 +33,6 @@ public class RegistroControl extends HttpServlet {
     private FuncionesGenerales funcionesGenerales;
     private ListasGeneralesModel listasGenerales;
     AbstractDAO estudianteDAO;
-    private String TODO;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -49,7 +47,7 @@ public class RegistroControl extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /*> TODO output your page here. You may use following sample code. </b>*/
+            /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
@@ -77,16 +75,42 @@ public class RegistroControl extends HttpServlet {
         HttpSession sesion = request.getSession();
         String json = "";
         funcionesGenerales = new FuncionesGenerales();
-         ActualizarDatos actualizarDatos = new ActualizarDatos();
+        ActualizarDatos actualizarDatos = new ActualizarDatos();
         try {
-             if(!sesion.getAttribute("codUser").equals(null)){
-                 if(sesion.getAttribute("idPerfil").equals("7")){
-                       json = new Gson().toJson("acudiente");  
-                 }else{
-                       json = new Gson().toJson(sesion.getAttribute("codUser"));
-                 }
-             
-         }
+            if (!sesion.getAttribute("codUser").equals(null)) {
+
+                int modulo = Integer.parseInt(request.getParameter("modulo"));
+                System.out.println("gdhasd" + modulo);
+                switch (2) {
+                    case 1:
+                        if (sesion.getAttribute("idPerfil").equals("7")) {
+                            json = new Gson().toJson("acudiente");
+                        } else {
+                            json = new Gson().toJson(sesion.getAttribute("codUser"));
+                        }
+                        break;
+
+                    case 2:
+                        listasGenerales=funcionesGenerales.obtenerDatosActualizar();
+                        json=new Gson().toJson(listasGenerales);
+                        
+                        break;
+                    case 3:
+                        System.out.println("gdhasd" + modulo);
+                        break;
+                    case 4:
+                        System.out.println("gdhasd" + modulo);
+                        break;
+                    case 5:
+                        
+                        break;
+                    case 6:
+                        listasGenerales=funcionesGenerales.obtenerDatosActualizar();
+                        json=new Gson().toJson(listasGenerales);
+                        break;
+                }
+
+            }
 
         } catch (Exception e) {
             System.out.println("Exception in Registro " + e);
@@ -109,12 +133,12 @@ public class RegistroControl extends HttpServlet {
         String json = "";
         funcionesGenerales = new FuncionesGenerales();
         ActualizarDatos actualizarDatos = new ActualizarDatos();
-        
+
         try {
             BufferedReader reader = request.getReader();
             JsonObject dataJson = funcionesGenerales.recibirDatos(reader);
             json = new Gson().toJson(actualizarDatos.filtroEstudiantes(dataJson));
-            System.out.println("json:" + json);    
+            System.out.println("json:" + json);
         } catch (Exception e) {
             System.err.println("Exception :" + e);
         }

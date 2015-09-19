@@ -9,7 +9,7 @@ function getDataFromServer($http) {
     var estudiante;
     $http({
         method: 'GET',
-        url: "../RegistroControl",
+        url: "../RegistroControl?modulo=1",
         headers: {'Content-Type': 'application/json'}
     }).success(function (data, status, headers, config) {
         registro.rol = data;
@@ -77,7 +77,20 @@ appEdupol.controller('DatosFinalizacionController', ['$http', getDatosFinalizaci
 
 function getDatosComplementarios($http) {
     var complementarios = this;
-
+         $http({
+        method: 'GET',
+        url: "../RegistroControl?modulo=1",
+        headers: {'Content-Type': 'application/json'}
+    }).success(function (data, status, headers, config) {
+        complementarios.person = data;
+    }).error(function (data, status, headers, config) {
+        // called asynchronously if an error occurs
+        // or server returns response with an error status.
+    });
+    $(document).ready(function () {
+        $('#example').DataTable();
+    });
+ 
     complementarios.secuenciaModulos = function () {
         var validar = complementarios.DatosComplementariosEstudiantes();
         if (validar) {
@@ -239,6 +252,20 @@ function getDatosUniversidades($http) {
 
 function getCodeudor($http) {
     var codeudor = this;
+    $http({
+        method: 'GET',
+        url: "../RegistroControl?modulo=1",
+        headers: {'Content-Type': 'application/json'}
+    }).success(function (data, status, headers, config) {
+        codeudor.person = data;
+    }).error(function (data, status, headers, config) {
+        // called asynchronously if an error occurs
+        // or server returns response with an error status.
+    });
+    $(document).ready(function () {
+        $('#example').DataTable();
+    });
+    
 
     codeudor.secuenciaModulosCodeudor = function () {
 
