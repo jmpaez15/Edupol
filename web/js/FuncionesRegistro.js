@@ -8,7 +8,7 @@ $(function() {
     $("#divDatosIcfes").hide();
     $("#divDatosUniversidad").hide();
     $("#divDatosCodeudor").hide();
-    $("#disDatosHomologacion").hide();
+    $("#divDatosHomologacion").hide();
     $("#divDatosPagos").hide();
     $("#divSimulador").hide();
     $("#divDocumentosRespaldo").hide();
